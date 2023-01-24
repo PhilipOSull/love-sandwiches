@@ -1,4 +1,7 @@
+from pprint import pprint
+
 import gspread
+
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -51,7 +54,6 @@ def validate_data(values):
     
     return True
 
-    
 # def update_sales_worksheet(data):
 #     """
 #     Update sales worksheet, add new row with the list data provided
@@ -79,6 +81,22 @@ def calculate_surplus_data(sales_row):
     
     return surplus_data
 
+def get_last_entry_sales():
+    
+    sales = SHEET.worksheet("sales")
+    # column = sales.col_values(3)
+    # print(column)
+
+    columns = []
+    for ind in range(1, 7):
+        column = sales.col_values(ind)
+        columns.append(column[4:9])
+    pprint(columns)
+
+        
+
+
+
 
 def update_worksheet(data, worksheet):
     print(f"Calculating {worksheet} worksheet...\n")
@@ -100,4 +118,5 @@ def main():
     update_worksheet(new_surplus_data, "surplus")
 
 print("Welcome to Love Sandwiches Data Automation")
-main()
+# main()
+get_last_entry_sales()
